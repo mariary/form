@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<script>
+    function Up(n) {
+        let data = ['months', 'years'];
+        let obj = document.getElementById(data[n - 1]);
+        let m = Number(obj.innerHTML) + 1;
+        obj.innerHTML = m;
+    }
+
+    function Down(n) {
+        let data = ['months', 'years'];
+        let obj = document.getElementById(data[n - 1]);
+        let m = Number(obj.innerHTML);
+        if (m <= 0) {
+            obj.innerHTML = 0;
+
+        } else {
+            obj.innerHTML = m - 1;
+        }
+    }
+
+    function BtnActive(n) {
+        let btns = document.querySelectorAll('.btn');
+        for (i = 0; i < btns.length; i++) {
+            btns[i].classList.remove('btn-active');
+        }
+        let btn = document.getElementById('btn' + n)
+        btn.classList.add('btn-active')
+    }
+
+    function Check() {
+        let mass = document.getElementById('mass');
+        let value = document.getElementById('mass').value;
+        let array = value.split('');
+        for (i = 0; i < array.length; i++) {
+            if (isNaN(array[i] - 1) === true || Number(value) > 20 ||  value === '') {
+                mass.classList.add('error');
+                alert('Вы неверно ввели массу');
+                mass.value='';
+                break;
+            } else {
+                mass.classList.remove('error');
+            }
+            ;
+        }
+        ;
+
+        let mail = document.getElementById('mail');
+        let str = mail.value
+        if (str.includes('@') === false) {
+            mail.classList.add('error');
+            alert('Вы неверно ввели Email');
+            mail.value='';
+        } else {
+            mail.classList.remove('error');
+        };
+
+        if (mass.classList.contains('error')===false && mail.classList.contains('error')===false) {
+            alert('Вы успешно отправили форму!')
+            mass.value='';
+            mail.value='';
+        }
+
+    };
+    function Hidden() {
+        let all = document.getElementById('container')
+        all.classList.toggle('hidden')
+    }
+</script>
+<body>
+<div class="container" id="container">
+    <button class="btn-close" id="btn-close" onclick="Hidden()"><img src="close.svg" alt=""></button>
+    <div class="form">
+        <h1>Прокачай кота!</h1>
+        <p>Подпишись на рассылку нашего тренера и получи индивиудальную подобранную программу тренировок для своего
+            кота</p>
+        <div class="main-info">
+            <span>Кот
+                <span class="age">
+                    <span class="months">
+                        <span id="months">0</span>
+                        <button class="up" id="up-1" onclick="Up(1)"><img src="arrow.svg" alt=""></button>
+                        <button class="down" id="down-1" onclick="Down(1)"><img src="arrow.svg" alt=""></button>
+                    </span>
+                    месяцев
+                    <span class="years">
+                        <span id="years">0</span>
+                        <button class="up" id="up-2" onclick="Up(2)"><img src="arrow.svg" alt=""></button>
+                        <button class="down" id="down-2" onclick="Down(2)"><img src="arrow.svg" alt=""></button>
+                    </span>
+                    лет и
+                </span>
+            </span>
+            <label>
+                <input type="text" class="mass" id="mass" onchange=value>
+                кг
+            </label>
+        </div>
+        <div class="btn-all">
+            <button class="btn" id="btn1" onclick="BtnActive(1)">Набор массы</button>
+            <button class="btn" id="btn2" onclick="BtnActive(2)">Похудение</button>
+            <button class="btn" id="btn3" onclick="BtnActive(3)">Не знаю</button>
+        </div>
+        <div class="wrap-mail">
+            <input type="email" id="mail" class="mail" placeholder="Ваш Email" onchange=value>
+        </div>
+        <div class="wrap-spam">
+            <label>
+                <input type="checkbox" class="spam" id="spam">
+                Хочу спам
+            </label>
+        </div>
+        <div class="subscribe">
+            <button class="btn-sbs" onclick="Check()">Подписаться</button>
+        </div>
+    </div>
+    <div class="icon">
+        <img class='img' src="cat.PNG" alt="">
+    </div>
+</div>
+</body>
+
+</html>
